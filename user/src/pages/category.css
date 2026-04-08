@@ -1,0 +1,124 @@
+/* =========================
+   CATEGORY PAGE (SCOPED)
+========================= */
+.category-page .category-box-layout1 {
+  background: #fff;
+  overflow: hidden;
+  margin-bottom: 30px;
+  transition: transform 0.15s linear; /* ⚡ fast & smooth */
+}
+
+/* Hover (card move) */
+.category-page .category-box-layout1:hover {
+  transform: translateY(-6px);
+}
+
+
+/* =========================
+   IMAGE CONTAINER
+========================= */
+.category-page .item-figure {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+.category-page .item-figure img {
+  display: block; /* remove white gap */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.15s linear; /* ⚡ fast */
+}
+
+
+/* IMAGE HOVER (light zoom) */
+.category-page .category-box-layout1:hover img {
+  transform: scale(1.03);
+}
+
+
+/* =========================
+   LIGHT BLACK OVERLAY
+========================= */
+.category-page .item-figure::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15); /* halka black */
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+
+/* =========================
+   TEXT CONTENT (BOTTOM LEFT)
+========================= */
+.category-page .item-content {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  color: #fff;
+  text-align: left;
+}
+
+
+/* Title */
+.category-page .item-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+
+/* Subtitle */
+.category-page .sub-title {
+  font-size: 14px;
+  color: #ddd;
+}
+.category-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.category-box-layout1 {
+  width: 100%;
+}
+
+.category-box-layout1 .item-figure {
+  width: 100%;
+}
+
+.category-box-layout1 .item-figure img {
+  width: 100%;
+  height: 300px;   /* fixed height */
+  object-fit: cover;
+}
+
+
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .category-page .item-figure {
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-page .item-figure {
+    height: 180px;
+  }
+}

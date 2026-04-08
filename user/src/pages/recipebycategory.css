@@ -1,0 +1,11 @@
+/* Meta icons fix */
+.recipe-card .entry-meta li i {
+  color: #ff4a52 !important;
+  margin-right: 6px;
+}
+
+/* Text color */
+.recipe-card .entry-meta li span {
+  color: #666;
+  font-size: 14px;
+}

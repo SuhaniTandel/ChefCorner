@@ -1,0 +1,113 @@
+.admin-content {
+  padding: 30px;
+  padding-top: 100px;   /* 🔥 IMPORTANT: adjust according to header height */
+  background-color: #f4f6f9;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Header Section */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.category-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  margin: 0; /* important to prevent upper shift */
+}
+
+/* Add Button - Blue Professional */
+.add-btn {
+  background-color: #2563eb;  /* blue */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Table Container */
+.table-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #f1f5f9;
+}
+
+th {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+td {
+  padding: 12px;
+  font-size: 14px;
+  color: #555;
+}
+
+tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Edit Link Styling */
+td a:first-child {
+  background-color: #4973e6;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 8px;
+  display: inline-block;
+  transition: 0.3s ease;
+}
+
+td a:first-child:hover {
+  background-color: #4973e6;
+}
+
+/* Delete Button Styling */
+td .btn-danger {
+  background-color: #ef3d4f;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: inline-block;
+}
+
+td .btn-danger:hover {
+  background-color: #d32f2f;
+}

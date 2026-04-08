@@ -1,0 +1,89 @@
+.sub-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#fff5eb,#ffe4cc);
+    padding:40px 20px;
+}
+
+.sub-card{
+    width:100%;
+    max-width:450px;
+    background:#fff;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+    text-align:center;
+    transition:0.3s;
+}
+
+.sub-card:hover{
+    transform:translateY(-5px);
+}
+
+.premium-badge{
+    background:#ff6600;
+    color:#fff;
+    display:inline-block;
+    padding:8px 20px;
+    border-radius:30px;
+    font-size:14px;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.sub-card h1{
+    font-size:30px;
+    color:#222;
+    margin-bottom:10px;
+}
+
+.sub-card p{
+    color:#666;
+    margin-bottom:20px;
+}
+
+.price-box{
+    background:linear-gradient(135deg,#ff6600,#ff8533);
+    color:white;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:25px;
+}
+
+.price-box h2{
+    font-size:42px;
+    margin:0;
+}
+
+.features{
+    list-style:none;
+    padding:0;
+    margin-bottom:25px;
+}
+
+.features li{
+    padding:12px;
+    margin-bottom:10px;
+    background:#f9f9f9;
+    border-radius:10px;
+    font-weight:500;
+}
+
+.pay-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ff6600,#ff4500);
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.pay-btn:hover{
+    transform:scale(1.03);
+}

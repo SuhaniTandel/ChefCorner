@@ -1,0 +1,77 @@
+/* Banner fix */
+
+.inner-page-banner{
+    padding: 80px 0;
+    position: relative;
+}
+
+.breadcrumbs-area{
+    text-align: center;
+}
+
+.breadcrumbs-area h1{
+    color: white;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.breadcrumb-list{
+    list-style: none;
+    padding: 0;
+}
+
+.breadcrumb-list li{
+    display: inline-block;
+    color: white;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+/* Contact Box */
+
+.contact-wrapper{
+    display: flex;
+    justify-content: center;
+    padding: 80px 0;
+}
+
+.contact-box{
+    width: 680px;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.contact-address ul{
+    list-style: none;
+    padding: 0;
+}
+
+.contact-address li{
+    margin-bottom: 12px;
+}
+
+.contact-form-box input,
+.contact-form-box textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.contact-form-box button{
+    background: #ff4a52;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+/* Banner fix */
+.inner-page-banner{
+    margin-top: 80px;   /* header ke height ke barabar */
+    padding: 60px 0;
+}
