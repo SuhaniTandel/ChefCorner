@@ -1,0 +1,171 @@
+/* HEADER (LIKE PLAN PAGE) */
+.sub-main-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sub-main-header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #222;
+}
+
+.sub-main-header p {
+    color: #777;
+    margin-top: 6px;
+    font-size: 15px;
+}
+
+/* MAIN CONTAINER */
+.admin-content {
+  margin-left: 260px;
+  margin-top: 90px;
+  padding: 30px;
+  background: #f4f7fc;
+  min-height: 100vh;
+}
+
+/* TITLE */
+.admin-content h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* TABLE */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* TABLE HEADER */
+.table thead {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+.table thead th {
+  padding: 14px;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* TABLE BODY */
+.table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #444;
+}
+
+/* ROW HOVER */
+.table tbody tr:hover {
+  background: #f1f5ff;
+  transition: 0.3s;
+}
+
+/* STATUS BADGES */
+.active {
+  background: #e6f9f0;
+  color: #00a86b;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.expired {
+  background: #ffe6e6;
+  color: #e63946;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* PAYMENT STATUS */
+.paid {
+  background: #e0f7fa;
+  color: #0077b6;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.pending {
+  background: #fff4e6;
+  color: #ff8800;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* BUTTONS */
+.btn-delete {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-delete:hover {
+  background: #d9363e;
+}
+
+/* FILTER BAR */
+.filter-bar {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: #e0e7ff;
+  color: #333;
+  font-size: 13px;
+}
+
+.filter-btn:hover {
+  background: #6a11cb;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .admin-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border: none;
+  }
+}
+

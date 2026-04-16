@@ -1,0 +1,207 @@
+/* =========================================
+   ✅ LAYOUT FIX (SIDEBAR RIGHT SIDE)
+========================================= */
+
+.single-recipe-wrap-layout1 .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* LEFT CONTENT */
+.single-recipe-wrap-layout1 .col-lg-8 {
+  flex: 0 0 68%;
+  max-width: 68%;
+}
+
+/* RIGHT SIDEBAR */
+.single-recipe-wrap-layout1 .col-lg-4 {
+  flex: 0 0 32%;
+  max-width: 32%;
+}
+
+/* =========================================
+   ✅ MAIN CONTENT IMPROVEMENT
+========================================= */
+
+.single-recipe-layout1 {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.single-recipe-layout1 .item-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.item-figure img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* META */
+.item-feature ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 0;
+  list-style: none;
+  margin: 15px 0;
+}
+
+.item-feature li {
+  background: #f5f5f5;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* =========================================
+   ✅ SIDEBAR DESIGN
+========================================= */
+
+.sidebar-widget-area {
+  padding-left: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+/* CARD */
+.sidebar-widget-area .widget {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+
+.sidebar-widget-area .widget:hover {
+  transform: translateY(-6px);
+}
+
+/* TITLE */
+.sidebar-widget-area .widget h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  padding-left: 10px;
+}
+
+/* =========================================
+   ✅ LATEST RECIPES
+========================================= */
+
+.widget-latest ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.widget-latest .single-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.widget-latest .item-img img {
+  width: 75px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.widget-latest .item-content h4 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.widget-latest .item-content a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.widget-latest .item-content a:hover {
+  color: #ff4a52;
+}
+
+/* =========================================
+   ✅ TAGS
+========================================= */
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-list .tag {
+  padding: 6px 14px;
+  background: #f3f3f3;
+  border-radius: 20px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+
+.tag-list .tag:hover {
+  background: #ff4a52;
+  color: #fff;
+}
+
+/* =========================================
+   ✅ NEWSLETTER
+========================================= */
+
+.widget-newsletter-subscribe input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.widget-newsletter-subscribe button {
+  width: 100%;
+  padding: 10px;
+  background: #ff4a52;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.widget-newsletter-subscribe button:hover {
+  background: #e63b42;
+}
+
+/* =========================================
+   ✅ RESPONSIVE
+========================================= */
+
+@media (max-width: 992px) {
+
+  .single-recipe-wrap-layout1 .row {
+    flex-direction: column;
+  }
+
+  .single-recipe-wrap-layout1 .col-lg-8,
+  .single-recipe-wrap-layout1 .col-lg-4 {
+    max-width: 100%;
+    flex: 100%;
+  }
+
+  .sidebar-widget-area {
+    padding-left: 0;
+    margin-top: 30px;
+  }
+}

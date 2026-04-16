@@ -1,0 +1,113 @@
+/* Background section */
+
+.register-section{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f7f7f7;
+}
+
+/* Card */
+
+.register-card{
+width:100%;
+max-width:450px;
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Title */
+
+.register-title{
+text-align:center;
+margin-bottom:25px;
+font-weight:600;
+}
+
+/* Form */
+
+.form-group{
+margin-bottom:20px;
+}
+
+.form-group label{
+font-weight:500;
+margin-bottom:5px;
+display:block;
+}
+
+.form-group input{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+}
+
+.form-group input:focus{
+outline:none;
+border-color:#ff4a52;
+}
+
+/* Button */
+
+.register-btn{
+width:100%;
+padding:12px;
+background:#ff4a52;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.register-btn:hover{
+background:#e63946;
+}
+
+/* Login link */
+
+.login-link{
+text-align:center;
+margin-top:15px;
+}
+
+.register-section{
+padding:80px 0;
+background:#f7f7f7;
+display:flex;
+justify-content:center;
+}
+
+.register-card{
+width:100%;
+max-width:450px;
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+margin:auto;
+}
+
+.breadcrumbs-area ul{
+list-style:none;
+padding:0;
+margin-top:10px;
+}
+
+.breadcrumbs-area ul li{
+display:inline-block;
+margin-right:10px;
+font-size:16px;
+
+}
+
+.breadcrumbs-area ul li a{
+text-decoration:none;
+color:white;
+}

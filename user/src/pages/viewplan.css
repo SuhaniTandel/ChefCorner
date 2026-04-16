@@ -1,0 +1,119 @@
+/* MAIN CONTAINER */
+.admin-content {
+  padding: 120px 40px 40px;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.plan-main-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.plan-main-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222;
+}
+
+.plan-main-header p {
+  color: #777;
+  font-size: 16px;
+}
+
+/* CARD CONTAINER */
+.plan-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+/* CARD DESIGN */
+.fancy-plan-card {
+  width: 300px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.fancy-plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* TOP STRIP */
+.plan-top-strip {
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, #ff7a18, #ffb347);
+  border-radius: 10px 10px 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* PLAN NAME */
+.fancy-plan-card h2 {
+  margin-top: 15px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* PRICE */
+.big-price {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ff7a18;
+  margin: 15px 0;
+}
+
+/* DAYS */
+.days-pill {
+  display: inline-block;
+  padding: 6px 15px;
+  background: #ffe8d6;
+  color: #ff7a18;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* DESCRIPTION */
+.fancy-plan-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0;
+}
+
+/* BUTTON */
+.plan-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #ff7a18, #ffb347);
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* BUTTON HOVER */
+.plan-btn:hover {
+  background: linear-gradient(90deg, #ff5e00, #ffa500);
+  transform: scale(1.05);
+}
+
+/* EMPTY TEXT */
+.plan-cards-container p {
+  font-size: 18px;
+  color: #888;
+}

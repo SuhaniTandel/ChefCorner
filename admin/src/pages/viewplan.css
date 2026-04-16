@@ -1,0 +1,169 @@
+/* MAIN CONTENT */
+.admin-content{
+    margin-left:260px;
+    margin-top:90px;   /* 🔥 HEADER se niche laayega */
+    padding:30px;
+    background:#f4f7fc;
+    min-height:100vh;
+    box-sizing:border-box;
+    width:calc(100% - 260px);
+    overflow-x:hidden;
+}
+
+
+/* HEADER */
+.plan-main-header{
+    margin-bottom:30px;
+    text-align:center;
+}
+
+.plan-main-header h1{
+    font-size:30px;
+    font-weight:700;
+    color:#222;
+}
+
+.plan-main-header p{
+    color:#777;
+    margin-top:6px;
+    font-size:15px;
+}
+
+
+/* GRID */
+.plan-cards-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+
+/* CARD */
+.fancy-plan-card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,0.06);
+    transition:.3s;
+    border:1px solid #eee;
+}
+
+.fancy-plan-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(255,102,0,0.15);
+}
+
+
+/* TOP LINE */
+.plan-top-strip{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:linear-gradient(90deg,#ff6600,#ff9d00);
+}
+
+
+/* TITLE */
+.fancy-plan-card h2{
+    font-size:22px;
+    font-weight:700;
+    margin-top:15px;
+    color:#222;
+}
+
+
+/* PRICE */
+.big-price{
+    font-size:32px;
+    color:#ff6600;
+    font-weight:800;
+    margin:15px 0;
+}
+
+
+/* DAYS */
+.days-pill{
+    display:inline-block;
+    background:#fff3e8;
+    color:#ff6600;
+    padding:8px 16px;
+    border-radius:25px;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+
+/* DESC */
+.fancy-plan-card p{
+    font-size:14px;
+    color:#666;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+
+/* BUTTON */
+.fancy-plan-card button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#ff6600,#ff9d00);
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.fancy-plan-card button:hover{
+    opacity:.9;
+}
+
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .admin-content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+    .plan-cards-container{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* ACTION BUTTONS */
+.plan-actions{
+    display:flex;
+    gap:10px;
+}
+
+/* ACTIVE BUTTON */
+.plan-btn{
+    flex:1;
+}
+
+/* DELETE BUTTON */
+.delete-btn{
+    flex:1;
+    background:#ff4d4d;
+    border:none;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.delete-btn:hover{
+    background:#cc0000;
+}

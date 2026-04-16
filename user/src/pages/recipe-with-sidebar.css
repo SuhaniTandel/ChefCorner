@@ -1,0 +1,39 @@
+.premium-center-btn {
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Same theme color */
+.subscribe-btn {
+  background: #ff4a52;  /* 🔥 same as your theme (change if needed) */
+  border: none;
+  padding: 8px 18px;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subscribe-btn:hover {
+  background: #ff4a52;
+}
+
+/* PREMIUM STAR BADGE */
+.premium-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: gold; /* golden glow */
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 6px;
+  border-radius: 10%; /* circular */
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.7); /* glow effect */
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

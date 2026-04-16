@@ -1,0 +1,87 @@
+/* 🔴 HEADER FIX */
+body {
+  padding-top: 80px;
+}
+
+/* 🔴 BANNER */
+.sub-inner-banner {
+  background: #111;
+  color: #fff;
+  padding: 40px 0;
+}
+
+/* 🔴 SECTION */
+.sub-padding {
+  padding: 40px 0;
+}
+
+/* 🔥 CARD */
+.sub-card {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.sub-card:hover {
+  transform: translateY(-6px);
+}
+
+/* IMAGE */
+.sub-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* CONTENT */
+.sub-content {
+  padding: 15px;
+}
+
+/* CATEGORY */
+.sub-category {
+  background: #ff6f61;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* TITLE */
+.sub-title {
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.sub-title a {
+  color: #333;
+  text-decoration: none;
+}
+
+.sub-title a:hover {
+  color: #ff6f61;
+}
+
+/* DESC */
+.sub-content p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* META */
+.sub-meta {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  font-size: 13px;
+  color: #888;
+}
+
+.sub-meta i {
+  margin-right: 5px;
+  color: #ff6f61;
+}
