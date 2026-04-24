@@ -2647,7 +2647,7 @@ overflow-y: auto;
 .site-menu {
 	margin: 0;
 	list-style: none;
-	font-size: large;
+	font-size: 15px;
 }
 
 .site-menu>li {
@@ -2944,7 +2944,7 @@ overflow-y: auto;
 	cursor: pointer;
 	box-shadow: none;
 	border: none;
-	font-size: large;
+	font-size: 15px;
 	font-weight: 400;
 	font-family: 'Poppins', sans-serif;
 	-webkit-transition: all 0.3s ease-out;
@@ -2979,7 +2979,7 @@ overflow-y: auto;
 	-ms-flex-pack: center;
 	justify-content: center;
 	padding: 9px 20px 9px 15px;
-	font-size: 13px;
+	font-size: 15px;
 	color: #ffffff;
 	background-color: #ff4a52;
 	font-weight: 600;

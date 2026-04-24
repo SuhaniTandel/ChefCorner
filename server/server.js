@@ -21,8 +21,8 @@ const con = mysql.createConnection({
 const Razorpay = require("razorpay");
 
 const razorpay = new Razorpay({
-  key_id: "rzp_test_1234567890abcdef",
-  key_secret: "abcdef1234567890abcdef"
+  key_id: "rzp_test_SbHXKCyIJ0GkmF",
+  key_secret: "S06sNyyKGatk0R05aS4pFhSs"
 });
 
 con.connect((err) => {
@@ -72,21 +72,17 @@ app.post("/api/verify-payment", (req, res) => {
   const {
     user_id,
     plan_id,
+    recipe_id,
     payment_id,
     amount
   } = req.body;
 
-  // plan details fetch
-  const getPlanSql = `
-    SELECT * FROM subscription_plan
-    WHERE plan_id=?
-  `;
+  const getPlanSql =
+    "SELECT * FROM subscription_plan WHERE plan_id=?";
 
   con.query(getPlanSql,[plan_id],(err,planResult)=>{
 
-    if(err){
-      return res.status(500).send(err);
-    }
+    if(err) return res.status(500).send(err);
 
     if(planResult.length===0){
       return res.status(404).send({
@@ -98,7 +94,6 @@ app.post("/api/verify-payment", (req, res) => {
     const plan = planResult[0];
 
     const expiryDate = new Date();
-
     expiryDate.setDate(
       expiryDate.getDate() + plan.duration_days
     );
@@ -108,6 +103,7 @@ app.post("/api/verify-payment", (req, res) => {
       (
         user_id,
         plan_id,
+        recipe_id,
         payment_id,
         amount,
         plan_name,
@@ -116,36 +112,72 @@ app.post("/api/verify-payment", (req, res) => {
         payment_status,
         expiry_date
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    con.query(
-      sql,
-      [
-        user_id,
-        plan_id,
-        payment_id,
-        amount,
-        plan.plan_name,
-        plan.recipes_limit,
-        0,
-        "Paid",
-        expiryDate
-      ],
-      (err,result)=>{
+    con.query(sql,[
+      user_id,
+      plan_id,
+      recipe_id, // ✅ FIXED
+      payment_id,
+      amount,
+      plan.plan_name,
+      plan.recipes_limit,
+      0,
+      "Paid",
+      expiryDate
+    ],(err,result)=>{
 
-        if(err){
-          return res.status(500).send(err);
-        }
-
-        res.send({
-          success:true,
-          message:"Subscription Activated"
-        });
-
+      if(err){
+        console.log(err);
+        return res.status(500).send(err);
       }
-    );
 
+      res.send({
+        success:true,
+        message:"Subscription Activated"
+      });
+
+    });
+
+  });
+
+});
+
+app.get("/api/subscription-recipes/:user_id", (req, res) => {
+
+  const user_id = req.params.user_id;
+
+  const sql = `
+    SELECT 
+      r.recipe_id,
+      r.recipe_name,
+      r.image,
+      r.description,
+      r.prep_time,
+      r.cook_time,
+      c.category_name,
+      s.expiry_date,
+      s.used_recipes,
+      s.recipes_limit
+    FROM subscription_table s
+    INNER JOIN recipe_table r 
+      ON s.recipe_id = r.recipe_id
+    LEFT JOIN category_table c 
+      ON r.category_id = c.category_id
+    WHERE s.user_id = ?
+    AND s.payment_status = 'Paid'
+    AND s.expiry_date > NOW()
+    AND r.approval_status = 1
+  `;
+
+  con.query(sql, [user_id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Database error");
+    }
+
+    res.send(result);
   });
 
 });
@@ -480,16 +512,39 @@ app.get("/api/recipes/:category_id", (req, res) => {
 app.get("/api/search", (req, res) => {
   const q = req.query.q;
 
+  // ✅ 1 letter या empty → no result
+  if (!q || q.trim().length <= 1) {
+    return res.send([]); // 🔥 IMPORTANT
+  }
+
+  const searchText = `%${q.trim()}%`;
+
   const sql = `
-    SELECT * FROM recipe_table
-    WHERE recipe_name LIKE ? 
-    OR ingredients LIKE ?
+    SELECT r.*, c.category_name 
+    FROM recipe_table r
+    LEFT JOIN category_table c 
+    ON r.category_id = c.category_id
+    WHERE 
+      r.approval_status = 1
+      AND (
+        r.recipe_name LIKE ? 
+        OR r.ingredients LIKE ?
+        OR c.category_name LIKE ?
+      )
   `;
 
-  con.query(sql, [`%${q}%`, `%${q}%`], (err, result) => {
-    if (err) return res.status(500).send(err);
-    res.send(result);
-  });
+  con.query(
+    sql,
+    [searchText, searchText, searchText],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send(err);
+      }
+
+      res.send(result);
+    }
+  );
 });
 
 // ================= LOGIN API =================
@@ -521,8 +576,23 @@ app.post('/api/login', (req, res) => {
 // ================= VIEW CATEGORY API =================
 
 app.get('/api/viewcategory', (req, res) => {
-    const query = "SELECT * FROM category_table";
+
+    const query = `
+        SELECT 
+            c.*,
+            COUNT(r.recipe_id) AS total_recipes
+        FROM category_table c
+        LEFT JOIN recipe_table r 
+        ON c.category_id = r.category_id 
+        AND r.approval_status = 1
+        GROUP BY c.category_id
+    `;
+
     con.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        }
         res.send(result);
     });
 });
@@ -674,22 +744,28 @@ app.post("/api/check-subscription", (req, res) => {
 
   const sql = `
     SELECT * FROM subscription_table
-    WHERE user_id=? AND recipe_id=?
+    WHERE user_id=?
+    AND recipe_id=?   -- ✅ IMPORTANT
+    AND payment_status='Paid'
+    AND expiry_date > NOW()
+    LIMIT 1
   `;
 
-  con.query(sql,[user_id,recipe_id],(err,result)=>{
+  con.query(sql, [user_id, recipe_id], (err, result) => {
 
-    if(err) return res.status(500).send(err);
+    if (err) return res.status(500).send(err);
 
-    if(result.length>0){
-      res.send({subscribed:true});
-    }else{
-      res.send({subscribed:false});
+    if (result.length > 0) {
+      res.send({ subscribed: true });
+    } else {
+      res.send({ subscribed: false });
     }
 
   });
 
 });
+
+
 
 // ================= ADD REVIEW API =================
 
@@ -720,23 +796,33 @@ app.post("/api/addreview", (req, res) => {
   });
 });
 
-app.get("/api/getreviews/:recipe_id", (req, res) => {
-
-  const recipe_id = req.params.recipe_id;
+app.get("/api/getreviews", (req, res) => {
 
   const sql = `
-    SELECT * FROM reviews 
-    WHERE recipe_id = ?
-    ORDER BY review_id DESC
+    SELECT 
+      r.review_id,
+      r.recipe_id,
+      r.name,
+      r.email,
+      r.message,
+      r.rating,
+      r.created_at,
+      COALESCE(rec.recipe_name, 'Unknown Recipe') AS recipe_name
+    FROM reviews r
+    LEFT JOIN recipe_table rec
+    ON r.recipe_id = rec.recipe_id
+    ORDER BY r.review_id DESC
   `;
 
-  con.query(sql, [recipe_id], (err, result) => {
+  con.query(sql, (err, result) => {
     if (err) {
-      return res.status(500).send("Error fetching reviews");
+      console.log(err);
+      return res.status(500).send(err);
     }
 
     res.send(result);
   });
+
 });
 
 app.get("/api/averagerating/:recipe_id", (req, res) => {
@@ -752,9 +838,7 @@ app.get("/api/averagerating/:recipe_id", (req, res) => {
   `;
 
   con.query(sql, [recipe_id], (err, result) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
+    if (err) return res.status(500).send(err);
 
     res.send(result[0]);
   });
@@ -894,6 +978,172 @@ app.post("/api/togglePremium", (req, res) => {
     }
 
     res.send("Updated");
+  });
+
+});
+
+app.post("/api/toggleApproval", (req, res) => {
+  const { recipe_id, status } = req.body;
+
+  const sql = "UPDATE recipe_table SET approval_status=? WHERE recipe_id=?";
+
+  con.query(sql, [status, recipe_id], (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error updating status");
+    }
+
+    res.send({ success: true });
+  });
+});
+
+// ================= USER MANAGEMENT SUBSCRIPTIONS =================
+
+app.get("/api/admin/subscriptions", (req, res) => {
+
+  const sql = `
+    SELECT 
+      s.subscription_id,
+      u.user_name,
+      u.user_email,
+      s.plan_name,
+      s.amount,
+      s.payment_date,
+      s.expiry_date,
+      s.payment_status,
+      
+      CASE 
+        WHEN s.expiry_date > NOW() THEN 'Active'
+        ELSE 'Expired'
+      END AS status
+
+    FROM subscription_table s
+    INNER JOIN user_table u 
+      ON s.user_id = u.user_id
+
+    ORDER BY s.subscription_id DESC
+  `;
+
+  con.query(sql, (err, result) => {
+    if (err) return res.status(500).send(err);
+
+    res.send({
+      success: true,
+      data: result
+    });
+  });
+});
+
+app.get("/api/admin/user-subscriptions/:user_id", (req, res) => {
+
+  const user_id = req.params.user_id;
+
+  const sql = `
+    SELECT 
+      s.*,
+      u.user_name,
+      u.user_email
+    FROM subscription_table s
+    INNER JOIN user_table u
+      ON s.user_id = u.user_id
+    WHERE s.user_id = ?
+    ORDER BY s.id DESC
+  `;
+
+  con.query(sql, [user_id], (err, result) => {
+
+    if (err) return res.status(500).send(err);
+
+    res.send({
+      success: true,
+      data: result
+    });
+
+  });
+
+});
+
+app.delete("/api/admin/subscription/:id", (req, res) => {
+
+  const id = req.params.id;
+
+  const sql = "DELETE FROM subscription_table WHERE id = ?";
+
+  con.query(sql, [id], (err, result) => {
+
+    if (err) {
+      console.log(err);
+      return res.status(500).send({
+        success: false,
+        message: "Delete failed"
+      });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.send({
+        success: false,
+        message: "Subscription not found"
+      });
+    }
+
+    res.send({
+      success: true,
+      message: "Subscription deleted"
+    });
+
+  });
+
+});
+
+app.put("/api/admin/update-payment-status/:id", (req, res) => {
+
+  const id = req.params.id;
+  const { payment_status } = req.body;
+
+  const sql = `
+    UPDATE subscription_table 
+    SET payment_status = ?
+    WHERE id = ?
+  `;
+
+  con.query(sql, [payment_status, id], (err) => {
+
+    if (err) return res.status(500).send(err);
+
+    res.send({
+      success: true,
+      message: "Payment status updated"
+    });
+
+  });
+
+});
+
+app.get("/api/admin/subscription-stats", (req, res) => {
+
+  const sql = `
+    SELECT 
+      COUNT(*) AS totalSubscriptions,
+
+      SUM(CASE WHEN expiry_date > NOW() THEN 1 ELSE 0 END) AS activeSubscriptions,
+
+      SUM(CASE WHEN expiry_date <= NOW() THEN 1 ELSE 0 END) AS expiredSubscriptions,
+
+      SUM(amount) AS totalRevenue
+
+    FROM subscription_table
+    WHERE payment_status = 'Paid'
+  `;
+
+  con.query(sql, (err, result) => {
+
+    if (err) return res.status(500).send(err);
+
+    res.send({
+      success: true,
+      data: result[0]
+    });
+
   });
 
 });

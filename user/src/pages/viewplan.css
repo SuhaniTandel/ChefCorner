@@ -1,103 +1,119 @@
-.user-plan-page{
-    padding:80px 20px;
-    background:#f9f9f9;
-    min-height:100vh;
+/* MAIN CONTAINER */
+.admin-content {
+  padding: 120px 40px 40px;
+  background: #f4f6f9;
+  min-height: 100vh;
 }
 
-.plan-header{
-    text-align:center;
-    margin-bottom:50px;
+/* HEADER */
+.plan-main-header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-.plan-header h1{
-    font-size:40px;
-    font-weight:700;
-    color:#222;
+.plan-main-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222;
 }
 
-.plan-header p{
-    font-size:18px;
-    color:#777;
-    margin-top:10px;
+.plan-main-header p {
+  color: #777;
+  font-size: 16px;
 }
 
-.user-plan-container{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:30px;
+/* CARD CONTAINER */
+.plan-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
 }
 
-.user-plan-card{
-    width:320px;
-    background:#fff;
-    border-radius:15px;
-    padding:30px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
-    text-align:center;
-    position:relative;
-    transition:0.3s;
+/* CARD DESIGN */
+.fancy-plan-card {
+  width: 300px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
 }
 
-.user-plan-card:hover{
-    transform:translateY(-10px);
+/* HOVER EFFECT */
+.fancy-plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
-.premium-tag{
-    position:absolute;
-    top:-12px;
-    right:20px;
-    background:#ff6600;
-    color:#fff;
-    padding:8px 15px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
+/* TOP STRIP */
+.plan-top-strip {
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, #ff7a18, #ffb347);
+  border-radius: 10px 10px 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.user-plan-card h2{
-    font-size:28px;
-    margin-bottom:15px;
-    color:#222;
+/* PLAN NAME */
+.fancy-plan-card h2 {
+  margin-top: 15px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
 }
 
-.plan-price{
-    font-size:36px;
-    font-weight:bold;
-    color:#ff6600;
-    margin-bottom:10px;
+/* PRICE */
+.big-price {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ff7a18;
+  margin: 15px 0;
 }
 
-.plan-days{
-    display:inline-block;
-    background:#ffe8d9;
-    color:#ff6600;
-    padding:8px 18px;
-    border-radius:20px;
-    font-size:14px;
-    margin-bottom:20px;
+/* DAYS */
+.days-pill {
+  display: inline-block;
+  padding: 6px 15px;
+  background: #ffe8d6;
+  color: #ff7a18;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
-.user-plan-card p{
-    font-size:15px;
-    color:#666;
-    margin-bottom:12px;
+/* DESCRIPTION */
+.fancy-plan-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0;
 }
 
-.subscribe-btn{
-    width:100%;
-    padding:14px;
-    border:none;
-    background:#ff6600;
-    color:#fff;
-    border-radius:8px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    margin-top:15px;
-    transition:0.3s;
+/* BUTTON */
+.plan-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #ff7a18, #ffb347);
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.subscribe-btn:hover{
-    background:#e65c00;
+/* BUTTON HOVER */
+.plan-btn:hover {
+  background: linear-gradient(90deg, #ff5e00, #ffa500);
+  transform: scale(1.05);
+}
+
+/* EMPTY TEXT */
+.plan-cards-container p {
+  font-size: 18px;
+  color: #888;
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 
 function RecipeWithoutSidebar() {
   const [recipes, setRecipes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/viewrecipes")
@@ -12,7 +13,44 @@ function RecipeWithoutSidebar() {
       .catch((err) => console.log(err));
   }, []);
 
-  // Filter recipes based on search input
+  // ✅ PREMIUM CHECK FUNCTION (ADDED)
+  const openRecipe = async (recipe) => {
+    const user_id = localStorage.getItem("user_id");
+
+    // Normal recipe → direct open
+    if (Number(recipe.is_premium) !== 1) {
+      navigate(`/single-recipe2/${recipe.recipe_id}`);
+      return;
+    }
+
+    // Not logged in
+    if (!user_id) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const res = await Axios.post(
+        "http://localhost:3001/api/check-subscription",
+        { user_id, recipe_id: recipe.recipe_id }
+      );
+
+      if (res.data.subscribed) {
+        navigate(`/single-recipe2/${recipe.recipe_id}`);
+      } else {
+        // ✅ GO TO VIEW PLAN
+        navigate("/view-plan", {
+          state: {
+            recipe_id: recipe.recipe_id,
+          },
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Filter recipes
   const filteredRecipes = recipes.filter(
     (item) =>
       item.recipe_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -44,6 +82,7 @@ function RecipeWithoutSidebar() {
 
       <section className="recipe-without-sidebar-wrap padding-top-80 padding-bottom-22">
         <div className="container">
+
           {/* Search Box */}
           <div className="adv-search-wrap">
             <div className="input-group mb-3">
@@ -62,7 +101,6 @@ function RecipeWithoutSidebar() {
                 </div>
               </div>
             </div>
-            
           </div>
 
           {/* Recipes List */}
@@ -73,21 +111,45 @@ function RecipeWithoutSidebar() {
                 key={item.recipe_id}
               >
                 <div className="product-box-layout1">
-                  <figure className="item-figure">
-                    <Link to={`/single-recipe2/${item.recipe_id}`}>
+
+                  <figure className="item-figure" style={{ position: "relative" }}>
+                    {/* ✅ CLICK HANDLER CHANGED */}
+                    <div
+                      onClick={() => openRecipe(item)}
+                      style={{ cursor: "pointer" }}
+                    >
                       <img
                         src={`http://localhost:3001/public/${item.image}`}
                         alt={item.recipe_name}
                       />
-                    </Link>
+                    </div>
+
+                    {/* ✅ PREMIUM BADGE */}
+                    {Number(item.is_premium) === 1 && (
+                      <span style={{
+                        position: "absolute",
+                        top: "10px",
+                        right: "10px",
+                        background: "gold",
+                        padding: "5px 8px",
+                        borderRadius: "50%",
+                        fontSize: "14px"
+                      }}>
+                        🔒
+                      </span>
+                    )}
                   </figure>
 
                   <div className="item-content">
                     <span className="sub-title">{item.category_name}</span>
-                    <h3 className="item-title">
-                      <Link to={`/single-recipe2/${item.recipe_id}`}>
-                        {item.recipe_name}
-                      </Link>
+
+                    {/* ✅ TITLE CLICK UPDATED */}
+                    <h3
+                      className="item-title"
+                      onClick={() => openRecipe(item)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {item.recipe_name}
                     </h3>
 
                     <ul className="item-rating">
@@ -104,7 +166,7 @@ function RecipeWithoutSidebar() {
                       <li>
                         <a href="#">
                           <i className="fas fa-clock"></i>
-                          {parseInt(item.prep_time) + parseInt(item.cook_time)} Mins
+                          {parseInt(item.prep_time) + parseInt(item.cook_time)} 
                         </a>
                       </li>
                       <li>
@@ -119,11 +181,32 @@ function RecipeWithoutSidebar() {
                         </a>
                       </li>
                     </ul>
+
+                    {/* ✅ PREMIUM BUTTON */}
+                    {Number(item.is_premium) === 1 && (
+                      <div style={{ textAlign: "center", marginTop: "10px" }}>
+                        <button
+                          onClick={() => openRecipe(item)}
+                          style={{
+                            background: "#ff6600",
+                            color: "#fff",
+                            border: "none",
+                            padding: "8px 15px",
+                            borderRadius: "5px",
+                            cursor: "pointer"
+                          }}
+                        >
+                          🔒 Unlock Premium ₹{item.price}
+                        </button>
+                      </div>
+                    )}
+
                   </div>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
     </>

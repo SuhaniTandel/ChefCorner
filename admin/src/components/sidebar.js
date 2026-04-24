@@ -74,31 +74,7 @@ function Sidebar() {
           </ul>
         </li>
 
-        {/* CHEFS 👨‍🍳 */}
-        <li className={`dropdown ${chefOpen ? "open" : ""}`}>
-          <div className="dropdown-head" onClick={() => setChefOpen(!chefOpen)}>
-            <div className="left">
-              <i className="fas fa-user-tie"></i>
-              <span>Chefs</span>
-            </div>
-            <i className="fas fa-chevron-down arrow"></i>
-          </div>
-
-          <ul className="dropdown-menu">
-            <li>
-              <Link to="/chefs">
-                <i className="fas fa-list"></i>
-                <span>View Chefs</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/addchefs">
-                <i className="fas fa-plus"></i>
-                <span>Add Chefs</span>
-              </Link>
-            </li>
-          </ul>
-        </li>
+        
 
         {/* NORMAL LINKS */}
         <li>
@@ -122,9 +98,9 @@ function Sidebar() {
         </li>
 
         <li>
-          <Link to="/users">
-            <i className="fas fa-users"></i>
-            <span>Users</span>
+          <Link to="/subscriptions">
+            <i className="fas fa-credit-card"></i>
+            <span>User Subscriptions</span>
           </Link>
         </li>
 

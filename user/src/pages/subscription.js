@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import "./subscription.css";
 
 function Subscription() {
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -11,13 +12,25 @@ function Subscription() {
     location.state?.plan ||
     JSON.parse(localStorage.getItem("selectedPlan"));
 
-  const recipe_id = location.state?.recipe_id;
+  const recipe_id =
+    location.state?.recipe_id ||
+    localStorage.getItem("recipe_id");
+
+  console.log("Recipe ID:", recipe_id); // yaha
+
 
   useEffect(() => {
     if (location.state?.plan) {
       localStorage.setItem(
         "selectedPlan",
         JSON.stringify(location.state.plan)
+      );
+    }
+
+    if (location.state?.recipe_id) {
+      localStorage.setItem(
+        "recipe_id",
+        location.state.recipe_id
       );
     }
   }, [location.state]);
@@ -48,16 +61,21 @@ function Subscription() {
           title: "Login Required",
           text: "Please login first",
         });
+
         navigate("/login");
         return;
       }
 
-      // 1️⃣ Create order on backend
-      const res = await fetch("http://localhost:3001/api/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: plan.price }),
-      });
+      const res = await fetch(
+        "http://localhost:3001/api/create-order",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: plan.price,
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -65,119 +83,111 @@ function Subscription() {
         Swal.fire({
           icon: "error",
           title: "Payment Failed",
-          text: "Unable to create order. Try again later.",
+          text: "Unable to create order",
         });
         return;
       }
 
-      // 2️⃣ Razorpay payment options
       const options = {
-        key: "YOUR_RAZORPAY_KEY", // <-- Replace with your key
-        amount: data.order.amount, // paise
+        key: "rzp_test_SbHXKCyIJ0GkmF",
+        amount: data.order.amount,
         currency: "INR",
         name: "Chef Corner",
         description: plan.plan_name,
-        image: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
         order_id: data.order.id,
+
         handler: async function (response) {
-          try {
-            // 3️⃣ Verify payment on backend
-            const verify = await fetch(
-              "http://localhost:3001/api/verify-payment",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  user_id,
-                  plan_id: plan.plan_id,
-                  payment_id: response.razorpay_payment_id,
-                  amount: plan.price,
-                }),
-              }
-            );
-
-            const verifyData = await verify.json();
-
-            if (verifyData.success) {
-              Swal.fire({
-                icon: "success",
-                title: "Payment Successful 🎉",
-                text: "Premium Activated Successfully",
-                confirmButtonText: "View Recipe",
-              }).then(() => {
-                localStorage.removeItem("selectedPlan");
-                if (recipe_id) {
-                  navigate(`/single-recipe2/${recipe_id}`);
-                } else {
-                  navigate("/");
-                }
-              });
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Payment Failed",
-                text: "Payment verification failed",
-              });
+          const verify = await fetch(
+            "http://localhost:3001/api/verify-payment",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                user_id,
+                plan_id: plan.plan_id,
+                recipe_id,
+                payment_id:
+                  response.razorpay_payment_id,
+                amount: plan.price,
+              }),
             }
-          } catch (err) {
-            console.error(err);
+          );
+
+          const verifyData =
+            await verify.json();
+
+          if (verifyData.success) {
             Swal.fire({
-              icon: "error",
-              title: "Payment Failed",
-              text: "Something went wrong during verification",
+              icon: "success",
+              title: "Payment Successful",
+            }).then(() => {
+
+              localStorage.removeItem(
+                "selectedPlan"
+              );
+
+              localStorage.removeItem(
+                "recipe_id"
+              );
+
+              navigate(
+                `/single-recipe1/${recipe_id}`
+              );
             });
           }
         },
-        prefill: {
-          name: "",
-          email: "",
-        },
-        notes: {
-          plan_name: plan.plan_name,
-        },
+
         theme: {
           color: "#ff6600",
         },
       };
 
-      const razorpay = new window.Razorpay(options);
+      const razorpay =
+        new window.Razorpay(options);
+
       razorpay.open();
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
-        icon: "error",
-        title: "Payment Failed",
-        text: "Something went wrong",
-      });
+
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
-    <div className="sub-container">
-      <div className="sub-card">
-        <div className="premium-badge">PREMIUM ACCESS</div>
+  <div className="sub-wrapper">
+    <div className="sub-box">
 
-        <h1>{plan.plan_name}</h1>
-        <p>Unlock all premium recipes instantly after payment</p>
+          
 
-        <div className="price-box">
-          <h2>₹{plan.price}</h2>
-          <span>{plan.duration_days} Days Validity</span>
-        </div>
+      <h1>{plan.plan_name}</h1>
 
-        <ul className="features">
-          <li>✔ {plan.recipes_limit} Premium Recipes</li>
-          <li>✔ Full Ingredients Details</li>
-          <li>✔ Detailed Cooking Steps</li>
-          <li>✔ Instant Access After Payment</li>
-        </ul>
+      <p className="sub-desc">
+        Unlock premium recipes instantly after payment
+      </p>
 
-        <button className="pay-btn" onClick={handlePayment}>
-          Pay Now 💳
-        </button>
+      <div className="price-section">
+        <h2>₹{plan.price}</h2>
+        <span>{plan.duration_days} Days Validity</span>
       </div>
+
+      <div className="feature-list">
+        <p>✔ {plan.recipes_limit} Premium Recipes</p>
+        <p>✔ Full Ingredients Details</p>
+        <p>✔ Detailed Cooking Steps</p>
+        <p>✔ Instant Premium Access</p>
+      </div>
+
+      <button
+        className="pay-btn"
+        onClick={handlePayment}
+      >
+        Pay Now 💳
+      </button>
+
     </div>
-  );
+  </div>
+);
 }
 
 export default Subscription;

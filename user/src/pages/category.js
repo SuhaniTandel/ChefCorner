@@ -69,7 +69,7 @@ function Category() {
                           {item.category_name}
                         </h3>
                         <span className="sub-title">
-                          {item.description}
+                          {item.total_recipes} Recipes
                         </span>
                       </div>
 

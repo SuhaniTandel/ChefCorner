@@ -24,8 +24,6 @@ import Subscription from "./pages/subscription";
 import ViewPlan from "./pages/viewplan";
 
 
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
 
 
 

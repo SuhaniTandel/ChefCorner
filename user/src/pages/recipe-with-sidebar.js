@@ -47,12 +47,14 @@ function RecipeWithSidebar() {
       if (res.data.subscribed) {
         navigate(`/single-recipe1/${recipe.recipe_id}`);
       } else {
-        navigate("/subscription", {
+
+        // ✅ ONLY CHANGE IS HERE
+        navigate("/view-plan", {
           state: {
-            recipe_id: recipe.recipe_id,
-            amount: recipe.price,
+            recipe_id: recipe.recipe_id
           },
         });
+
       }
     } catch (err) {
       console.log(err);
@@ -235,6 +237,7 @@ function RecipeWithSidebar() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>

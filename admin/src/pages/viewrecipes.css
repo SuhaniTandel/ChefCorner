@@ -292,7 +292,7 @@
   border: 1px solid #ccc;
   background: #f8f9fa;
   cursor: pointer;
-  width: 60px;           /* width control */
+  width: 160px;           /* width control */
 }
 
 
@@ -300,19 +300,101 @@
 .action-dropdown:hover {
   border-color: #888;
 }
+/* ================= FOOTER FIX ================= */
 .recipe-footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;   /* vertically center */
+  align-items: flex-start;
+  margin-top: 20px;
   gap: 10px;
-  margin-top: 50px;
-  margin-bottom: 20px;
 }
 
+/* STATUS LEFT */
+.status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ACTIONS RIGHT */
 .recipe-actions {
   display: flex;
-  align-items: center;
-  gap: 6px;              /* buttons ke beech space */
+  flex-direction: column;
+  gap: 6px;
+  width: 160px;
+}
+
+/* TOP ROW (VIEW + PREMIUM) */
+.action-row-top {
+  display: flex;
+  gap: 6px;
+}
+
+/* BOTTOM ROW (APPROVE + REJECT) */
+.action-row-bottom {
+  display: flex;
+  gap: 6px;
+}
+
+/* COMMON BUTTON */
+.recipe-actions button {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+/* VIEW */
+.view-btn {
+  background: #1d37de;
+  color: white;
+}
+
+.view-btn:hover {
+  background: #0f2bbd;
+}
+
+/* PREMIUM */
+.premium-btn {
+  background: #fff3e8;
+  color: #ff6600;
+}
+
+.premium-btn:hover {
+  background: #ff6600;
+  color: white;
+}
+
+/* REMOVE PREMIUM */
+.premium-btn.remove {
+  background: #ffe6e6;
+  color: #e63946;
+}
+
+/* APPROVE */
+.approve-btn {
+  background: #22c55e;
+  color: white;
+}
+
+.approve-btn:hover {
+  background: #16a34a;
+}
+
+/* REJECT */
+.reject-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.reject-btn:hover {
+  background: #dc2626;
 }
 
 

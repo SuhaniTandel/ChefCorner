@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import Swal from "sweetalert2";
 import "./viewplan.css";
 
 function ViewPlans() {
@@ -9,12 +10,39 @@ function ViewPlans() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchPlans();
   }, []);
 
   const fetchPlans = async () => {
     const res = await Axios.get("http://localhost:3001/api/view-plans");
     setPlans(res.data);
+  };
+
+  // ✅ DELETE FUNCTION
+  const handleDelete = async (id) => {
+
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: "This plan will be deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff6600",
+      cancelButtonColor: "#999",
+      confirmButtonText: "Yes, delete it!"
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        await Axios.delete(`http://localhost:3001/api/delete-plan/${id}`);
+        fetchPlans();
+
+        Swal.fire("Deleted!", "Plan has been removed.", "success");
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error!", "Something went wrong.", "error");
+      }
+    }
   };
 
   return (
@@ -44,20 +72,23 @@ function ViewPlans() {
 
             <p>{plan.recipes_limit} Premium Recipes Access</p>
 
-            <p>
-              {plan.description}
-            </p>
+            <p>{plan.description}</p>
 
-            <button
-                className="plan-btn"
-                onClick={() =>
-                    navigate("/subscription", {
-                    state: { plan }
-                    })
-                }
-                >
-                Subscribe Now
-            </button>
+            {/* ✅ BUTTONS */}
+            <div className="plan-actions">
+
+              <button className="plan-btn" disabled>
+                Active Plan
+              </button>
+
+              <button 
+                className="delete-btn"
+                onClick={() => handleDelete(plan.plan_id)}
+              >
+                Delete
+              </button>
+
+            </div>
 
           </div>
         ))}

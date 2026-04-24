@@ -6,55 +6,96 @@ function LoginModal() {
       className="modal fade"
       id="myModal"
       tabIndex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
+      role="dialog"
     >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
 
+          {/* HEADER */}
           <div className="modal-header">
-            <h5 className="modal-title">Login</h5>
+            <div className="title-default-bold mb-none">Login</div>
+
+            {/* ✅ Bootstrap 4 close */}
             <button
               type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+              className="close"
+              data-dismiss="modal"
+            >
+              ×
+            </button>
           </div>
 
+          {/* BODY */}
           <div className="modal-body">
 
-            <form>
+            <form className="login-form">
 
-              <div className="mb-3">
-                <label className="form-label">Email</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Enter email"
-                />
+              <input
+                className="main-input-box"
+                type="text"
+                placeholder="User Name"
+              />
+
+              <input
+                className="main-input-box"
+                type="password"
+                placeholder="Password"
+              />
+
+              <div className="inline-box mb-5 mt-4">
+
+                <div className="checkbox checkbox-primary">
+                  <input id="modal-checkbox" type="checkbox" />
+                  <label htmlFor="modal-checkbox">Remember Me</label>
+                </div>
+
+                <label className="lost-password">
+                  <a href="#">Lost your password?</a>
+                </label>
+
               </div>
 
-              <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Enter password"
-                />
-              </div>
+              <div className="inline-box mb-5 mt-4">
 
-              <button type="submit" className="btn btn-primary w-100">
-                Login
-              </button>
+                <button className="btn-fill" type="submit">
+                  Login
+                </button>
+
+                <a href="#" className="btn-register">
+                  <i className="fas fa-user"></i> Register Here!
+                </a>
+
+              </div>
 
             </form>
 
-          </div>
+            <label>Login connect with your Social Network</label>
 
-          <div className="modal-footer">
-            <p style={{margin:"0 auto"}}>
-              Don't have an account? <a href="#">Register</a>
-            </p>
+            <div className="login-box-social">
+              <ul>
+                <li>
+                  <a href="#" className="facebook">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="twitter">
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="linkedin">
+                    <i className="fab fa-linkedin-in"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="google">
+                    <i className="fab fa-google-plus-g"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
           </div>
 
         </div>

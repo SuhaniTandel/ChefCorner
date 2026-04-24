@@ -46,6 +46,27 @@ function ViewRecipes() {
       });
   };
 
+  // ⭐ PREMIUM TOGGLE (NEW)
+  const togglePremium = (recipe_id, currentStatus) => {
+    Axios.post("http://localhost:3001/api/togglePremium", {
+      recipe_id,
+      is_premium: currentStatus === 1 ? 0 : 1
+    })
+      .then(() => {
+        fetchRecipes();
+        Swal.fire(
+          "Updated!",
+          currentStatus === 1
+            ? "Removed from Premium"
+            : "Marked as Premium",
+          "success"
+        );
+      })
+      .catch(() => {
+        Swal.fire("Error", "Failed to update", "error");
+      });
+  };
+
   // 📊 Stats
   const stats = [
     {
@@ -196,6 +217,18 @@ function ViewRecipes() {
 
                     <button className="view-btn">
                       View
+                    </button>
+
+                    {/* ⭐ PREMIUM BUTTON (NEW) */}
+                    <button
+                      className="premium-btn"
+                      onClick={() =>
+                        togglePremium(recipe.recipe_id, recipe.is_premium)
+                      }
+                    >
+                      {recipe.is_premium === 1
+                        ? "❌ Remove Premium"
+                        : "⭐ Make Premium"}
                     </button>
 
                     {recipe.approval_status === 0 && (
